@@ -11,6 +11,9 @@ public record Configuration(
 
     private double minManagerToMeanReportPayRatio = 1.2;
     private double maxManagerToMeanReportPayRatio = 1.5;
+    /**
+     * Reporting line length is the number of vertical relationships between a given employee and the CEO
+     **/
     private double maxReportingLineLength = 5;
     private String defaultFilePath = "company.csv";
 
@@ -18,27 +21,27 @@ public record Configuration(
       return new Builder();
     }
 
-    private Builder minManagerToMeanReportPayRatio(double value) {
+    public Builder minManagerToMeanReportPayRatio(double value) {
       this.minManagerToMeanReportPayRatio = value;
       return this;
     }
 
-    private Builder maxManagerToMeanReportPayRatio(double value) {
+    public Builder maxManagerToMeanReportPayRatio(double value) {
       this.maxManagerToMeanReportPayRatio = value;
       return this;
     }
 
-    private Builder maxReportingLineLength(double value) {
+    public Builder maxReportingLineLength(double value) {
       this.maxReportingLineLength = value;
       return this;
     }
 
-    private Builder defaultFilePath(String value) {
+    public Builder defaultFilePath(String value) {
       this.defaultFilePath = value;
       return this;
     }
 
-    // it's a pity java doesn't have named arguments like kotlin
+    // it's a pity java doesn't have named or default arguments like kotlin
     public Configuration build() {
       return new Configuration(
           minManagerToMeanReportPayRatio,

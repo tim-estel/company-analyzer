@@ -4,6 +4,7 @@ import com.estel.analyzer.domain.model.Employee;
 
 public record Issue(
     Employee employee,
-    Number payload
+    IssueType issueType,
+    Number issueMagnitude
 ) {
 }

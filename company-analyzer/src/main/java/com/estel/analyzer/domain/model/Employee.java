@@ -9,6 +9,13 @@ public record Employee(
 ) {
   @Override
   public String toString() {
-    return STR."Employee{id=\{id}, managerId=\{managerId}, firstName='\{firstName}\{'\''}, lastName='\{lastName}\{'\''}, salary=\{salary}\{'}'}";
+    final StringBuilder sb = new StringBuilder("Employee{");
+    sb.append("id=").append(id);
+    sb.append(", managerId=").append(managerId);
+    sb.append(", firstName='").append(firstName).append('\'');
+    sb.append(", lastName='").append(lastName).append('\'');
+    sb.append(", salary=").append(salary);
+    sb.append('}');
+    return sb.toString();
   }
 }

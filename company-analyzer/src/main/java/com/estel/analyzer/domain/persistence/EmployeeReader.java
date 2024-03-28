@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface EmployeeReader {
 
-  public List<Employee> readEmployees(String employeeLocation);
+  List<Employee> readEmployees(String employeeLocation);
 }

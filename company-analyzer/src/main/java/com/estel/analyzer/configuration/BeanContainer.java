@@ -12,10 +12,11 @@ import java.util.List;
 
 public class BeanContainer {
 
+  /**
+   * Dependency injection manager. May be an overkill here.
+   */
   private static BeanContainer INSTANCE;
-  public final Configuration configuration =
-      Configuration.Builder.newInstance()
-          .build();
+  public final Configuration configuration = Configuration.Builder.newInstance().build();
   public final EmployeeReader employeeReader = new EmployeeReaderImpl();
   public final OrganizationService organizationService = new OrganizationService();
   public final ManagerPayAnalyzer managerPayAnalyzer = new ManagerPayAnalyzer(

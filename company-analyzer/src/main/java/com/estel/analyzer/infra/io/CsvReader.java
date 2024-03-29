@@ -46,6 +46,6 @@ public class CsvReader {
   }
 
   private String[] lineToCsvCells(String line) {
-    return line.split(SEPARATOR);
+    return line.split(SEPARATOR, -1);
   }
 }

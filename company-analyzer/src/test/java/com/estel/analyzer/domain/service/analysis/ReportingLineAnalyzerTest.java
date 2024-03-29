@@ -18,7 +18,7 @@ public class ReportingLineAnalyzerTest {
       .maxReportingLineLength(2)
       .build();
   private OrganizationService organizationService = new OrganizationService();
-  private Analyzer managerPayAnalyzer = new ManagerPayAnalyzer(configuration);
+  private Analyzer reportingLineAnalyzer = new ReportingLineAnalyzer(configuration);
 
   @Test
   public void shouldFindTooLongReportingChains() {
@@ -36,7 +36,7 @@ public class ReportingLineAnalyzerTest {
     Organization organization = organizationService.createOrganizationStructure(employees);
 
     // when
-    Map<IssueType, Set<Issue>> analysisResult = managerPayAnalyzer.analyze(organization);
+    Map<IssueType, Set<Issue>> analysisResult = reportingLineAnalyzer.analyze(organization);
 
     // then
     assertEquals(1, analysisResult.size());

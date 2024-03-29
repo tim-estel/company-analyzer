@@ -9,16 +9,17 @@ import java.util.Set;
 public class AnalysisPresenter {
 
   public void presentAnalysisResults(String fileName, Map<IssueType, Set<Issue>> analysisResults) {
+    System.out.println("=========================================================================================");
     System.out.println("Performed an analysis of the org structure based on " + fileName);
     reportUnderpaidManagers(analysisResults);
     reportOverpaidManagers(analysisResults);
     reportExcessivelyLongReportingChains(analysisResults);
-    System.out.println("====================================================");
+    System.out.println("=========================================================================================");
   }
 
 
   private void reportUnderpaidManagers(Map<IssueType, Set<Issue>> analysisResults) {
-    System.out.println("*** Managers receiving less than 1.2x the average pay of their direct reports: ***");
+    System.out.println("======== Managers receiving less than 1.2x the average pay of their direct reports: ========");
     Set<Issue> issues = analysisResults.get(IssueType.PAY_TOO_LOW_RELATIVE_TO_REPORTS);
     if(issues.isEmpty()) {
       noIssuesDetected();
@@ -30,7 +31,7 @@ public class AnalysisPresenter {
   }
 
   private void reportOverpaidManagers(Map<IssueType, Set<Issue>> analysisResults) {
-    System.out.println("*** Managers receiving more than 1.5x the average pay of their direct reports: ***");
+    System.out.println("======== Managers receiving more than 1.5x the average pay of their direct reports: ========");
     Set<Issue> issues = analysisResults.get(IssueType.PAY_TOO_HIGH_RELATIVE_TO_REPORTS);
     if(issues.isEmpty()) {
       noIssuesDetected();
@@ -42,7 +43,7 @@ public class AnalysisPresenter {
   }
 
   private void reportExcessivelyLongReportingChains(Map<IssueType, Set<Issue>> analysisResults) {
-    System.out.println("*** Employees with >4 managers between them and the CEO: ***");
+    System.out.println("======== Employees with >4 managers between them and the CEO: ========");
     Set<Issue> issues = analysisResults.get(IssueType.REPORTING_CHAIN_TOO_LONG);
     if(issues.isEmpty()) {
       noIssuesDetected();

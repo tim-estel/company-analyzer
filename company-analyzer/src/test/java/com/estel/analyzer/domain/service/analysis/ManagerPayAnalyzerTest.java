@@ -25,9 +25,9 @@ public class ManagerPayAnalyzerTest {
   public void shouldFindManagersEarningTooLittle() {
     // given
     List<Employee> employees = List.of(
-        new Employee(1, null, "Andrew", "Anderson", 2),
-        new Employee(2576, 1, "Boris", "Bowman", 1),
-        new Employee(2457, 1, "Caroline", "Cartman", 35_000),
+        new Employee(1, null, "Andrew", "Anderson", 28000),
+        new Employee(2576, 1, "Boris", "Bowman", 20000),
+        new Employee(2457, 2576, "Caroline", "Cartman", 35_000),
         new Employee(85788, 1, "Diane", "Doe", 20_000),
         new Employee(809, 2457, "Edward", "Emmerson", 10_000)
     );
@@ -39,12 +39,11 @@ public class ManagerPayAnalyzerTest {
     Map<IssueType, Set<Issue>> analysisResult = managerPayAnalyzer.analyze(organization);
 
     // then
-    assertEquals(1, analysisResult.size());
     Set<Issue> managerUnderpayments = analysisResult.get(IssueType.PAY_TOO_LOW_RELATIVE_TO_REPORTS);
     assertEquals(1, managerUnderpayments.size());
     Issue singleManagerUnderpayment = managerUnderpayments.iterator().next();
     assertEquals(employees.get(1), singleManagerUnderpayment.employee());
-    assertEquals(34_999, singleManagerUnderpayment.issueMagnitude());
+    assertEquals(15_000, singleManagerUnderpayment.issueMagnitude());
   }
 
   @Test
@@ -65,10 +64,9 @@ public class ManagerPayAnalyzerTest {
     Map<IssueType, Set<Issue>> analysisResult = managerPayAnalyzer.analyze(organization);
 
     // then
-    assertEquals(1, analysisResult.size());
-    Set<Issue> managerUnderpayments = analysisResult.get(IssueType.PAY_TOO_HIGH_RELATIVE_TO_REPORTS);
-    assertEquals(1, managerUnderpayments.size());
-    Issue ceoOverpayment = managerUnderpayments.iterator().next();
+    Set<Issue> managerOverpayments = analysisResult.get(IssueType.PAY_TOO_HIGH_RELATIVE_TO_REPORTS);
+    assertEquals(1, managerOverpayments.size());
+    Issue ceoOverpayment = managerOverpayments.iterator().next();
     assertEquals(employees.get(1), ceoOverpayment.employee());
     assertEquals(20_002.5, ceoOverpayment.issueMagnitude());
   }

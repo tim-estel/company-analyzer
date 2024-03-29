@@ -6,6 +6,7 @@ import com.estel.analyzer.domain.model.Organization;
 import com.estel.analyzer.domain.service.organization.OrganizationService;
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -64,10 +65,16 @@ public class ManagerPayAnalyzerTest {
     Map<IssueType, Set<Issue>> analysisResult = managerPayAnalyzer.analyze(organization);
 
     // then
-    Set<Issue> managerOverpayments = analysisResult.get(IssueType.PAY_TOO_HIGH_RELATIVE_TO_REPORTS);
-    assertEquals(1, managerOverpayments.size());
-    Issue ceoOverpayment = managerOverpayments.iterator().next();
-    assertEquals(employees.get(1), ceoOverpayment.employee());
-    assertEquals(20_002.5, ceoOverpayment.issueMagnitude());
+    List<Issue> managerOverpayments = analysisResult.get(IssueType.PAY_TOO_HIGH_RELATIVE_TO_REPORTS)
+        .stream()
+        .sorted(Comparator.comparingDouble(Issue::issueMagnitude).reversed())
+        .toList();
+    assertEquals(2, managerOverpayments.size());
+    Issue ceoOverpayment = managerOverpayments.getFirst();
+    assertEquals(employees.getFirst(), ceoOverpayment.employee());
+    assertEquals(40837.5, ceoOverpayment.issueMagnitude());
+    Issue otherManagerOverpayment = managerOverpayments.get(1);
+    assertEquals(employees.get(2), otherManagerOverpayment.employee());
+    assertEquals(10000.0, otherManagerOverpayment.issueMagnitude());
   }
 }

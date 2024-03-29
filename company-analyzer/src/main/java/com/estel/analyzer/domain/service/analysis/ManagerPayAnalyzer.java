@@ -58,7 +58,7 @@ public class ManagerPayAnalyzer implements Analyzer {
     return averageDirectReportPayPerManager
         .entrySet()
         .stream()
-        .map(it -> Map.entry(it.getKey(), it.getKey().salary() - it.getValue() * configuration.MAX_REPORTING_LINE_LENGTH()))
+        .map(it -> Map.entry(it.getKey(), it.getKey().salary() - it.getValue() * configuration.MAX_MANAGER_TO_MEAN_REPORT_PAY_RATIO()))
         .filter(it -> it.getValue() > 0)
         .map(this::toOverpaymentIssue)
         .collect(Collectors.toSet());

@@ -39,8 +39,8 @@ public class CompanyFacadeTest {
     assertEquals(2, underpayments.size());
     assertEquals(6_000, underpayments.get(0).issueMagnitude());
     assertEquals("Alice", underpayments.get(0).employee().firstName());
-    assertEquals(42_000, underpayments.get(0).issueMagnitude());
-    assertEquals("Joe", underpayments.get(0).employee().firstName());
+    assertEquals(42_000, underpayments.get(1).issueMagnitude());
+    assertEquals("Joe", underpayments.get(1).employee().firstName());
 
     Set<Issue> overpayments = issues.get(IssueType.PAY_TOO_HIGH_RELATIVE_TO_REPORTS);
     Assertions.assertTrue(overpayments.isEmpty());

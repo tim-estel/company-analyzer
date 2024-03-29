@@ -12,10 +12,18 @@ import java.util.List;
 
 public class BeanContainer {
 
-  /**
-   * Dependency injection manager. May be an overkill here.
-   */
   private static BeanContainer INSTANCE;
+
+  private BeanContainer() {
+  }
+
+  public static BeanContainer getInstance() {
+    if (INSTANCE == null) {
+      INSTANCE = new BeanContainer();
+    }
+    return INSTANCE;
+  }
+
   public final Configuration configuration = Configuration.Builder.newInstance().build();
   public final EmployeeReader employeeReader = new EmployeeReaderImpl();
   public final OrganizationService organizationService = new OrganizationService();
@@ -36,14 +44,4 @@ public class BeanContainer {
       organizationService,
       analysisService
   );
-
-  private BeanContainer() {
-  }
-
-  public static BeanContainer getInstance() {
-    if (INSTANCE == null) {
-      INSTANCE = new BeanContainer();
-    }
-    return INSTANCE;
-  }
 }

@@ -39,11 +39,11 @@ public class OrganizationServiceTest {
     // then
     // TODO: make the list of checks complete, split into multiple test cases.
     Node<Employee> detectedCEO = getFirstEmployeeWithSeniority(organization, 0);
-    Set<Node<Employee>> detectedMidLevelWorkers = organization.employeesBySeniority().get(1);
+    Set<Node<Employee>> detectedMidLevelWorkers = organization.employeesByLevel().get(1);
     Node<Employee> detectedJanitor = getFirstEmployeeWithSeniority(organization, 2);
 
     assertEquals("Andrew", detectedCEO.data.firstName(), "Incorrectly detected CEO");
-    assertEquals(3, organization.employeesBySeniority().size(), "Incorrectly calculated the height of the org structure");
+    assertEquals(3, organization.employeesByLevel().size(), "Incorrectly calculated the height of the org structure");
     assertEquals(0, detectedCEO.distanceFromRoot, "CEO has superiors");
     assertEquals(3, detectedCEO.children.size(), "CEO has an incorrect number of direct reports");
 
@@ -64,6 +64,6 @@ public class OrganizationServiceTest {
       Organization organization,
       Integer seniority
   ) {
-    return organization.employeesBySeniority().get(seniority).iterator().next();
+    return organization.employeesByLevel().get(seniority).iterator().next();
   }
 }

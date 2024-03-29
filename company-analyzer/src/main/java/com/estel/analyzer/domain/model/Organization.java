@@ -5,7 +5,7 @@ import java.util.Set;
 
 public record Organization(
 
-    Map<Integer, Set<Node<Employee>>> employeesBySeniority,
+    Map<Integer, Set<Node<Employee>>> employeesByLevel,
     Node<Employee> ceo
 ) {
 }

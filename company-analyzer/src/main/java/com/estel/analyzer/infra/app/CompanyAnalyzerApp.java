@@ -16,7 +16,7 @@ public class CompanyAnalyzerApp {
     String filePath = getFilePath(args);
     Map<IssueType, Set<Issue>> analysisResult = beans.companyFacade.analyzeCompany(filePath);
     AnalysisPresenter presenter = new AnalysisPresenter();
-    presenter.presentAnalysisResults(analysisResult);
+    presenter.presentAnalysisResults(filePath, analysisResult);
   }
 
   private static String getFilePath(String[] args) {

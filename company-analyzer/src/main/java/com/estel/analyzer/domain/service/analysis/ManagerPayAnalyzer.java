@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class ManagerPayAnalyzer implements Analyzer {
 
-  private Configuration configuration;
+  private final Configuration configuration;
 
   public ManagerPayAnalyzer(Configuration configuration) {
     this.configuration = configuration;
@@ -38,11 +38,10 @@ public class ManagerPayAnalyzer implements Analyzer {
   }
 
   private Double averageDirectReportSalary(Node<Employee> employee) {
-    Double averageDirectReportSalary = employee.children.stream()
+    return employee.children.stream()
         .mapToDouble(it -> it.data.salary())
         .average()
         .orElse(0);
-    return averageDirectReportSalary;
   }
 
   private Set<Issue> getUnderpayments(Map<Employee, Double> averageDirectReportPayPerManager) {

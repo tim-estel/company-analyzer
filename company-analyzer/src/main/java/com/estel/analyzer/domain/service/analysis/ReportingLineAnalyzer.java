@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class ReportingLineAnalyzer implements Analyzer {
 
-  private Configuration configuration;
+  private final Configuration configuration;
 
   public ReportingLineAnalyzer(Configuration configuration) {
     this.configuration = configuration;

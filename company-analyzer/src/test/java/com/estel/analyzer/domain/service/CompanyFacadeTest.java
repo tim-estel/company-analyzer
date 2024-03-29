@@ -6,6 +6,8 @@ import com.estel.analyzer.domain.service.analysis.IssueType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -30,11 +32,15 @@ public class CompanyFacadeTest {
     Map<IssueType, Set<Issue>> issues = companyFacade.analyzeCompany(filePath);
 
     // then
-    Set<Issue> underpayments = issues.get(IssueType.PAY_TOO_LOW_RELATIVE_TO_REPORTS);
-    assertEquals(1, underpayments.size());
-    Issue underpayment = underpayments.iterator().next();
-    assertEquals(6_000, underpayment.issueMagnitude());
-    assertEquals("Alice", underpayment.employee().firstName());
+    List<Issue> underpayments = issues.get(IssueType.PAY_TOO_LOW_RELATIVE_TO_REPORTS)
+        .stream()
+        .sorted(Comparator.comparingDouble(it -> it.issueMagnitude()))
+        .toList();
+    assertEquals(2, underpayments.size());
+    assertEquals(6_000, underpayments.get(0).issueMagnitude());
+    assertEquals("Alice", underpayments.get(0).employee().firstName());
+    assertEquals(42_000, underpayments.get(0).issueMagnitude());
+    assertEquals("Joe", underpayments.get(0).employee().firstName());
 
     Set<Issue> overpayments = issues.get(IssueType.PAY_TOO_HIGH_RELATIVE_TO_REPORTS);
     Assertions.assertTrue(overpayments.isEmpty());

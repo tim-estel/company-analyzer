@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class AnalysisService {
 
-  private List<Analyzer> analyzers;
+  private final List<Analyzer> analyzers;
 
   public AnalysisService(List<Analyzer> analyzers) {
     this.analyzers = analyzers;
